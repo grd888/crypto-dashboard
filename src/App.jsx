@@ -7,21 +7,36 @@ const App = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(API_URL)
-    .then(res => {
-      if (!res.ok) throw new Error("Failed to fetch data");
-      return res.json();
-    })
-    .then(data => {
-      console.log(data);
-      setCoins(data);
-    })
-    .catch(err => {
-      setError(err.message);
-    })
-    .finally(() => {
-      setLoading(false);
-    })
+    const fetchCoins = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error("Failed to fetch data");
+        const data = await res.json();
+        console.log(data);
+        setCoins(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchCoins();
+    //   fetch(API_URL)
+    // .then(res => {
+    //   if (!res.ok) throw new Error("Failed to fetch data");
+    //   return res.json();
+    // })
+    // .then(data => {
+    //   console.log(data);
+    //   setCoins(data);
+    // })
+    // .catch(err => {
+    //   setError(err.message);
+    // })
+    // .finally(() => {
+    //   setLoading(false);
+    // })
   }, []);
   return (
     <div>
