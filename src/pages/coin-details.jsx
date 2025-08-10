@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
+import Spinner from "../components/Spinner";
 
 const CoinDetailsPage = () => {
   const { id } = useParams();
@@ -29,9 +30,8 @@ const CoinDetailsPage = () => {
     <div className="coin-details-container">
       <Link to="/">← Back to Home</Link>
       <h1 className="coin-details-title">
-        {coin ? `${coin.name} (${coin.symbol.toUpperCase()})` : "Loading..."}
+        {coin ? `${coin.name} (${coin.symbol.toUpperCase()})` : <Spinner />}
       </h1>
-      {loading && <p>Loading...</p>}
       {error && <div className="error">{error}</div>}
       {!loading && !error && coin && (
         <>
